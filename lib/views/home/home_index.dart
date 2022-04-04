@@ -63,6 +63,7 @@ class _HomeIndexPageState extends State<HomeIndexPage> {
       case ConnectionState.done:
         print('done');
         if (snapshot.hasError) return Text('Error: ${snapshot.error}');
+        if(!snapshot.hasData) return Center(child: Text("暂无数据"),);
         return ListView.builder(itemBuilder: (context, index) {
           return Container();
         });

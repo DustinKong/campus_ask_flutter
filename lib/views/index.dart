@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +46,7 @@ class _IndexState extends State<Index> {
     //     print(res.data['data']);
     //   });
     _getData = FutureDio('post', Api.login, {"sid": "076003"}).then((res) {
-      print(res.data);
+      print(res);
     });
   }
 
@@ -65,6 +64,7 @@ class _IndexState extends State<Index> {
       case ConnectionState.done:
         print('done');
         if (snapshot.hasError) return Text('Error: ${snapshot.error}');
+        if(!snapshot.hasData) return Center(child: Text("暂无数据"),);
         return ListView.builder(itemBuilder: (context, index) {
           return InkWell(
             child: Container(

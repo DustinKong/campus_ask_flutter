@@ -76,7 +76,7 @@ class _MyAboutPageState extends State<MyAboutPage> {
             SizedBox(
               height: 40,
             ),
-            Center(child: Image.asset('assets/images/logo.png',height: 140,width: 140,),),
+            Center(child: Image.asset('assets/images/ground/顶部头像@2x.png',height: 140,width: 140,),),
             SizedBox(
               height: 10,
             ),
@@ -85,7 +85,7 @@ class _MyAboutPageState extends State<MyAboutPage> {
               height: 10,
             ),
             Text(
-              "专注企业培训",
+              "专注校园",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
             ),
             // Text(
@@ -95,7 +95,8 @@ class _MyAboutPageState extends State<MyAboutPage> {
             SizedBox(
               height: 40,
             ),
-            Padding(padding: EdgeInsets.all(40),child: Text("校园问问专注于中小企业企业培训市场致力于打造培训需求方（企业用户）与培训供给方（培训机构）之间的培训交易与管理平台，成为连接供需双方最便捷的通道与桥梁。做最值得中小企业信赖的企业培训平台。"),)
+            Padding(padding: EdgeInsets.all(40),child: Text("校园问问专注于校园事物。"),),
+            Padding(padding: EdgeInsets.all(40),child: Text("制作方：郑营锋。"),)
             // Center(
             //   child: CachedNetworkImage(
             //     fit: BoxFit.cover,

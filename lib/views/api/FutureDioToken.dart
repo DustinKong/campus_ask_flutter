@@ -28,9 +28,9 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
   };
 
   var options = BaseOptions(
-      sendTimeout:150,
-      connectTimeout: 600,
-      receiveTimeout: 600,
+      sendTimeout:600,
+      connectTimeout: 1000,
+      receiveTimeout: 2000,
       responseType: ResponseType.json,
       validateStatus: (status) {
         // 不使用http状态码判断状态，使用AdapterInterceptor来处理（适用于标准REST风格）
@@ -105,10 +105,10 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
     //   }
     // }
   } catch (e) {
-    print("catch401");
-    print("code401");
+    print(e);
+    print("catch");
     Fluttertoast.showToast(
-        msg: "请重新登录!",
+        msg: "连接超时",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,

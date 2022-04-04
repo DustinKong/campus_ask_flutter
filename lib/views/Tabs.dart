@@ -76,24 +76,23 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
 //            ],
 //          ),
             ),
-            // child: FloatingActionButton(
-            //     backgroundColor: Color(0xff3954A3),
-            //     // child: Container(
-            //     //   height: 40,
-            //     //   width: 40,
-            //     //   decoration:  BoxDecoration(
-            //     //     color: Colors.transparent,
-            //     //     image:  DecorationImage(
-            //     //         fit: BoxFit.scaleDown, image: ExactAssetImage('assets/images/tabbar/book.png', scale: 5)),
-            //     //   ),
-            //     // ),
-            //     child: Icon(Icons.import_contacts),
-            //     onPressed: () {
-            //       setState(() {
-            //         _currentIndex = 2;
-            //       });
-            //       print('float');
-            //     }),
+            child: FloatingActionButton(
+                backgroundColor: Color(0xff3954A3),
+                // child: Container(
+                //   height: 40,
+                //   width: 40,
+                //   decoration:  BoxDecoration(
+                //     color: Colors.transparent,
+                //     image:  DecorationImage(
+                //         fit: BoxFit.scaleDown, image: ExactAssetImage('assets/images/tabbar/book.png', scale: 5)),
+                //   ),
+                // ),
+                child: Icon(Icons.add),
+                onPressed: () {
+
+                  Navigator.pushNamed(context, '/groundFormAct');
+                  print('float');
+                }),
           ),
           // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           backgroundColor: Colors.white,
@@ -115,7 +114,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                   decoration:  BoxDecoration(
                     color: Colors.transparent,
                     image:  DecorationImage(
-                        fit: BoxFit.scaleDown, image: ExactAssetImage('assets/images/tabbar/首页-off@3x.png', scale: 3.9)),
+                        fit: BoxFit.scaleDown, image: ExactAssetImage('assets/images/tabbar/首页-off@3x.png', scale: 3.5)),
                   ),
                 ),
                 activeIcon:  Container(
@@ -141,7 +140,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                   decoration:  BoxDecoration(
                     color: Colors.transparent,
                     image:  DecorationImage(
-                        fit: BoxFit.scaleDown, image: ExactAssetImage('assets/images/tabbar/论坛-off@3x.png', scale: 3.9)),
+                        fit: BoxFit.scaleDown, image: ExactAssetImage('assets/images/tabbar/论坛-off@3x.png', scale: 3.5)),
                   ),
                 ),
                 activeIcon:  Container(
@@ -165,7 +164,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                   decoration:  BoxDecoration(
                     color: Colors.transparent,
                     image:  DecorationImage(
-                        fit: BoxFit.scaleDown, image: ExactAssetImage('assets/images/tabbar/消息-off@3x.png', scale: 3.9)),
+                        fit: BoxFit.scaleDown, image: ExactAssetImage('assets/images/tabbar/消息-off@3x.png', scale: 3.5)),
                   ),
                 ),
                 activeIcon:  Container(
