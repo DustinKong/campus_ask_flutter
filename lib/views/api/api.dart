@@ -2,7 +2,7 @@
 class Api {
   // static const String BASE_URL = 'http://192.144.169.239/kt';
   // static const String BASE_URL = 'https://qituant.cn:8082';
-  static const String BASE_URL = 'http://101.133.145.113:8888';
+  static const String BASE_URL = 'http://10.21.3.111:8080';
 
   static const String login = BASE_URL + '/jeecg-boot/sys/login'; //初始化 重新登录 app初始化时调用
 
