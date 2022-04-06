@@ -67,7 +67,7 @@ dependencies:
   # 请求权限
   permission_handler: ^4.4.0
   # 用于动态调整屏幕和字体大小
-  flutter_screenutil: ^2.3.1
+  flutter_screenutil: ^4.0.2
   # 简单的加载框 用于提交
   flutter_easyloading: ^1.1.4
   # 登录用加载框

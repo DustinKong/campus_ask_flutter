@@ -153,9 +153,9 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
               ),
               Positioned(
                 bottom: -15.0,
-                width: ScreenUtil.screenWidth,
+                width: ScreenUtil().screenWidth,
                 child: Container(
-                  width: ScreenUtil.screenWidth,
+                  width: ScreenUtil().screenWidth,
                   height: 30,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(30))),
@@ -326,7 +326,7 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
                             cursorWidth: 1.3,
                             decoration: InputDecoration(
                               hintStyle: new TextStyle(
-                                fontSize: ScreenUtil.screenHeight * 0.019,
+                                fontSize: ScreenUtil().screenHeight * 0.019,
                               ),
                               hintText: '搜索感兴趣的内容',
                               border: InputBorder.none,

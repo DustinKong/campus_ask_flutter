@@ -45,7 +45,7 @@ class _IndexState extends State<Index> {
     //   FutureDio('get', Api.getUserPermissionByToken, {"pageNo":1,"pageSize":33}).then((res) {
     //     print(res.data['data']);
     //   });
-    _getData = FutureDio('post', Api.login, {"sid": "076003"}).then((res) {
+    _getData = FutureDio('post', Api.login, {}).then((res) {
       print(res);
     });
   }
@@ -90,7 +90,7 @@ class _IndexState extends State<Index> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, width: 750, height: 1334, allowFontScaling: false);
+    // ScreenUtil.init(context, width: 750, height: 1334, allowFontScaling: false);
     return Scaffold(
         appBar: new AppBar(
           centerTitle: true,
@@ -145,7 +145,7 @@ class _IndexState extends State<Index> {
                               cursorWidth: 1.3,
                               decoration: InputDecoration(
                                 hintStyle: new TextStyle(
-                                  fontSize: ScreenUtil.screenHeight * 0.019,
+                                  fontSize: ScreenUtil().screenHeight * 0.019,
                                 ),
                                 hintText: '搜索感兴趣的内容',
                                 border: InputBorder.none,

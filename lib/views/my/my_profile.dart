@@ -194,7 +194,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
               height: 60,
               child: Center(
                 child: Container(
-                    width: ScreenUtil.screenWidth * 0.9,
+                    width: ScreenUtil().screenWidth * 0.9,
                     child: FlatButton(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
                       color: Color(0xff3954A3),
