@@ -194,10 +194,20 @@ class _GroundFormActState extends State<GroundFormAct> {
   Widget build(BuildContext context) {
     return FlutterEasyLoading(
       child: Scaffold(
-        appBar: new AppBar(
+        appBar: AppBar(
           centerTitle: true,
-          title: new Text("编辑内容"),
-          backgroundColor: Color(0xff5653ff),
+            leading:  IconButton(
+              icon:  Icon(Icons.arrow_back,color: Colors.black,),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          elevation: 0, //隐藏底部阴影分割线
+          title: new Text(
+            "编辑内容",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
+          ),
+          backgroundColor: Colors.white,
         ),
         body: GestureDetector(
           // 可以点击空白收起键盘
@@ -296,12 +306,12 @@ class _GroundFormActState extends State<GroundFormAct> {
                     child: ListTile(
                       title: Text(
                         "所在位置",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 16),
                       ),
                       leading: Image.asset(
                         "assets/images/ground/定位@2x.png",
-                        height: 15,
-                        width: 15,
+                        height: 20,
+                        width: 20,
                       ),
                       trailing: Icon(
                         Icons.arrow_forward_ios,
@@ -309,7 +319,7 @@ class _GroundFormActState extends State<GroundFormAct> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context, '/myAboutPage');
+                      // Navigator.pushNamed(context, '/myAboutPage');
                     },
                   ),
                 ),
@@ -319,12 +329,12 @@ class _GroundFormActState extends State<GroundFormAct> {
                     child: ListTile(
                       title: Text(
                         "添加标签",
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 16),
                       ),
                       leading: Image.asset(
                         "assets/images/ground/话题符号@2x.png",
-                        height: 15,
-                        width: 15,
+                        height: 20,
+                        width: 20,
                       ),
                       trailing: Icon(
                         Icons.arrow_forward_ios,
@@ -332,7 +342,7 @@ class _GroundFormActState extends State<GroundFormAct> {
                       ),
                     ),
                     onTap: () {
-                      Navigator.pushNamed(context, '/myAboutPage');
+                      // Navigator.pushNamed(context, '/myAboutPage');
                     },
                   ),
                 ),

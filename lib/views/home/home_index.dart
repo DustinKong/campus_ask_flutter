@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../api/ColorUtil.dart';
+import '../api/LogUtil.dart';
 import '../api/api.dart';
 import '../api/SpUtil.dart';
 import '../api/FutureDioToken.dart';
@@ -40,6 +42,21 @@ class _HomeIndexPageState extends State<HomeIndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        leading:  IconButton(
+          icon:  Icon(Icons.arrow_back,color: Colors.black,),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        elevation: 0, //隐藏底部阴影分割线
+        title: new Text(
+          "编辑内容",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
+        ),
+        backgroundColor: Colors.white,
+      ),
       body: FutureBuilder(
         builder: _buildFuture,
         future: _futureBuilderFuture,

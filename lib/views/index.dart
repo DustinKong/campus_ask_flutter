@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import './Tabs.dart';
 import 'api/api.dart';
 import 'api/ColorUtil.dart';
 import 'api/LogUtil.dart';
-import 'api/api2.dart';
 import 'api/SpUtil.dart';
 import 'api/FutureDioToken.dart';
 
@@ -203,9 +203,10 @@ class _IndexState extends State<Index> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (content) {
-                          return BottomNavigationWidget(index: 1, pageIndex: 0);
-                        }));
+                        // Navigator.push(context, MaterialPageRoute(builder: (content) {
+                        //   return BottomNavigationWidget(index: 1, pageIndex: 0);
+                        // }));
+                        Navigator.pushNamed(context, '/homeGuidePage');
                       },
                       child: Column(
                         children: <Widget>[
@@ -275,9 +276,14 @@ class _IndexState extends State<Index> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (content) {
-                          return BottomNavigationWidget(index: 1, pageIndex: 3);
-                        }));
+                        Fluttertoast.showToast(
+                            msg: "敬请期待",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.deepOrangeAccent,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                       },
                       child: Column(
                         children: <Widget>[
@@ -303,9 +309,14 @@ class _IndexState extends State<Index> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (content) {
-                          return BottomNavigationWidget(index: 1, pageIndex: 0);
-                        }));
+                        Fluttertoast.showToast(
+                            msg: "敬请期待",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.deepOrangeAccent,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                       },
                       child: Column(
                         children: <Widget>[
@@ -327,9 +338,14 @@ class _IndexState extends State<Index> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (content) {
-                          return BottomNavigationWidget(index: 1, pageIndex: 1);
-                        }));
+                        Fluttertoast.showToast(
+                            msg: "敬请期待",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.deepOrangeAccent,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                       },
                       child: Column(
                         children: <Widget>[
@@ -351,9 +367,14 @@ class _IndexState extends State<Index> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (content) {
-                          return BottomNavigationWidget(index: 1, pageIndex: 2);
-                        }));
+                        Fluttertoast.showToast(
+                            msg: "敬请期待",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.deepOrangeAccent,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
                       },
                       child: Column(
                         children: <Widget>[
@@ -376,11 +397,14 @@ class _IndexState extends State<Index> {
             ),
             Padding(
               padding: EdgeInsets.all(10),
-              child: Image.asset(
+              child: InkWell(child: Image.asset(
                 'assets/images/home/引导认证小卡片@2x.png',
                 fit: BoxFit.cover,
-              ),
+              ),onTap: (){
+
+              },)
             ),
+
             Row(
               children: <Widget>[
                 InkWell(
