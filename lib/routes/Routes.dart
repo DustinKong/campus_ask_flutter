@@ -7,6 +7,7 @@ import '../views/my/my_index.dart';
 import '../views/my/my_about.dart';
 import '../views/ground/ground_index.dart';
 import '../views/ground/ground_form_act.dart';
+import '../views/ground/ground_detail.dart';
 
 import '../views/my/my_profile.dart';
 
@@ -27,7 +28,7 @@ final routes = {
   // '/myRecordVideoPage': (context) => MyRecordVideoPage(),
   //
   // '/studyDetailAllPage': (context) => StudyDetailAllPage(),
-  // '/courseDetailPage': (context,{arguments}) => CourseDetailPage(arguments:arguments),
+  '/GroundDetailPage': (context,{arguments}) => GroundDetailPage(arguments:arguments),
   // '/studyDetailOfflinePage': (context,{arguments}) => StudyDetailOfflinePage(arguments:arguments),
   // '/studyDetailVideoPage': (context,{arguments}) => StudyDetailVideoPage(arguments:arguments),
 

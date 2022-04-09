@@ -30,12 +30,13 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
   @override
   void initState() {
     super.initState();
-    // _getData = FutureDio('post', Api.login, {"sid": "076003"}).then((res) {
-    //   print(res.data);
-    // });
-    // _futureBuilderFuture = _getData;
+    _getData = FutureDio('get', Api.getArticleByThemeId + "/1/1", {});
+    _futureBuilderFuture = _getData;
     // LogUtil.init(title: "来自LogUtil",limitLength:800);
-
+    // FutureDio('get', Api.getArticleByThemeId+"/1/1",{} ).then((res){
+    //   LogUtil.d(res.data);
+    //   // print(res.data);
+    // });
     var log = "我是日志";
     //仅在Debug时打印
     LogUtil.d(log);
@@ -60,7 +61,7 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
             alignment: Alignment.topCenter,
             children: <Widget>[
               Container(
-                height: 230,
+                height: 230.h,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage("assets/images/ground/顶部背景 6@2x.png"),
@@ -72,11 +73,11 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(left: 5),
                       child: Image.asset(
                         "assets/images/ground/顶部头像@2x.png",
-                        height: 120,
-                        width: 120,
+                        height: 110.h,
+                        width: 110.w,
                       ),
                     ),
                     Expanded(
@@ -115,8 +116,8 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
                                   borderRadius: BorderRadius.circular(8),
                                   color: ColorsUtil.hexColor(0xD8D8D8, alpha: 0.4),
                                 ),
-                                height: 40,
-                                width: 85,
+                                height: 35.h,
+                                width: 75.w,
                                 // color: ColorsUtil.hexColor(0xD8D8D8, alpha: 0.4),
                                 child: InkWell(
                                   child: Row(
@@ -212,7 +213,7 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(10, 0, 5, 10),
+            padding: EdgeInsets.fromLTRB(10, 0, 5, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -337,9 +338,19 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
                     )),
               ],
             ),
-          )
+          ),
+          Container(height: 5,color: ColorsUtil.hexColor(0xF0F0F0),),
+          Container(
+            height:480.h,
+            color: ColorsUtil.hexColor(0xF0F0F0),
+            child: FutureBuilder(
+              builder: _buildFuture,
+              future: _getData,
+            ),
+          ),
         ],
       ),
+
     );
   }
 
@@ -359,9 +370,119 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
       case ConnectionState.done:
         print('done');
         if (snapshot.hasError) return Text('Error: ${snapshot.error}');
-        return ListView.builder(itemBuilder: (context, index) {
-          return Container();
-        });
+        LogUtil.d('finished');
+        LogUtil.d(snapshot.data);
+        List showList = snapshot.data.data['data']['records'];
+        return ListView.builder(
+            itemCount: showList.length,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.fromLTRB(10, 5, 5, 10),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                height: 110.h,
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                        // isThreeLine:true,
+                        onTap: (){
+                          Navigator.pushNamed(context, '/GroundDetailPage', arguments: {'id': showList[index]['articleId'].toString()});
+                        },
+                        leading: ClipOval(
+                          child: CachedNetworkImage(
+                            fit: BoxFit.fill,
+                            height: 35,
+                            width: 35,
+                            imageUrl: showList[index]['userEntity']['avatarUrl'],
+                          ),
+                        ),
+                        title: Text(showList[index]['userEntity']['nickname'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(showList[index]['createTime']),
+                            Text(showList[index]['articleText'],style: TextStyle(color: Colors.black),),
+                          ],
+                        ),
+                        trailing: Container(
+                          decoration:
+                              BoxDecoration(borderRadius: BorderRadius.circular(8), color: ColorsUtil.deepPurple()),
+                          height: 30.h,
+                          width: 70.w,
+                          // color: ColorsUtil.hexColor(0xD8D8D8, alpha: 0.4),
+                          child: InkWell(
+                            child: Row(
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 12,
+                                ),
+                                Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  "关注",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )),
+                    Container(
+                      margin: EdgeInsets.only(left: 65.w),
+                      width: ScreenUtil().screenWidth-30.w,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                              child: Row(
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/ground/点赞@2x.png',
+                                    height: 18,
+                                    width: 18,
+                                  ),
+                                  Text(
+                                    showList[index]['articleLike'].toString(),
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              )),
+                          Expanded(
+                              child: Row(
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/ground/评论@2x.png',
+                                    height: 18,
+                                    width: 18,
+                                  ),
+                                  Text(
+                                    "回复",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              )),
+                          Expanded(
+                              child: Row(
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/ground/分享@2x.png',
+                                    height: 18,
+                                    width: 18,
+                                  ),
+                                  Text(
+                                    "分享",
+                                    style: TextStyle(color: Colors.grey),
+                                  )
+                                ],
+                              )),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              );
+            });
       default:
         return null;
     }

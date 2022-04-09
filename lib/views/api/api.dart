@@ -2,18 +2,24 @@
 class Api {
   // static const String BASE_URL = 'http://192.144.169.239/kt';
   // static const String BASE_URL = 'https://qituant.cn:8082';
-  static const String BASE_URL = 'http://10.21.3.111:8080';
+  static const String BASE_URL = 'http://10.21.11.12:8089';
 
   static const String login = BASE_URL + '/jeecg-boot/sys/login'; //初始化 重新登录 app初始化时调用
 
   static const String randomImage = BASE_URL + '/jeecg-boot/sys/randomImage'; //验证码.
   static const String getUserPermissionByToken = BASE_URL + '/jeecg-boot/sys/permission/getUserPermissionByToken'; //验证码.
 
-  static const String taskStandard = BASE_URL + '/jeecg-boot/standard/taskStandard/list'; //task_standard-分页列表查询
-  static const String prodPlan = BASE_URL + '/jeecg-boot/prodplan/prodPlan/list'; //prod_plan-分页列表查询
+  static const String getNewArticle = BASE_URL + '/ForumController/getNewArticle'; //获取最新文章
+  static const String forumArticles = BASE_URL + '/ForumController/forumArticles'; //获取文章
+  static const String getArticleByThemeId = BASE_URL + '/ForumController/getArticleByThemeId'; //获取tab2文章
+  static const String getArticleById = BASE_URL + '/ForumController/getArticleById'; //从id获取文章
+  static const String getNewComment = BASE_URL + '/ForumController/getNewComment'; //从id获取评论
+
+
+  static const String taskStandard = BASE_URL + '/jeecg-boot/prodplan/prodPlan/list'; //prod_plan-分页列表查询
 
   static const String Search = BASE_URL + '/wx/index/course/search'; //关键词搜索
-  static const String Courses = BASE_URL + '/wx/index/courses'; //查询所有所有课程
+  static const String prodPlan = BASE_URL + '/wx/index/courses'; //查询所有所有课程
   static const String CourseInfo = BASE_URL + '/wx/index/course/info'; //获取课程详情
   static const String CourseComments = BASE_URL + '/wx/index/course/comments'; //获取课程评价
   static const String CourseTeacher = BASE_URL + '/wx/course/teacher'; //查看老师信息

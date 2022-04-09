@@ -44,8 +44,11 @@ class _HomeIndexPageState extends State<HomeIndexPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading:  IconButton(
-          icon:  Icon(Icons.arrow_back,color: Colors.black,),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -80,7 +83,10 @@ class _HomeIndexPageState extends State<HomeIndexPage> {
       case ConnectionState.done:
         print('done');
         if (snapshot.hasError) return Text('Error: ${snapshot.error}');
-        if(!snapshot.hasData) return Center(child: Text("暂无数据"),);
+        if (!snapshot.hasData)
+          return Center(
+            child: Text("暂无数据"),
+          );
         return ListView.builder(itemBuilder: (context, index) {
           return Container();
         });

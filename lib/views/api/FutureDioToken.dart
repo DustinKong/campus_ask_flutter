@@ -23,7 +23,8 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
   /// 自定义Header
   Map<String, dynamic> httpHeaders = {
     'content-type': 'application/json',
-    'X-Access-Token': '${SpUtil.preferences.getString('user_token')}'
+    'auth-token':'oQzN85Sujph6QohSCTTTTTTTTest'
+    // 'X-Access-Token': '${SpUtil.preferences.getString('user_token')}'
     //'Token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTcyNTcxNDQsInVzZXJuYW1lIjoid3gtc2Vzc2lvbi11c2VyOm90SG5rNU16aDYzamJScmZMcXk3aE9uYlBDbTQifQ.qA1HM8By7XBvgz75cE52B1bHrX4heNZcRXQ4W8McbXI'
   };
 
@@ -53,9 +54,11 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
     }
     //注意get请求使用queryParameters接收参数，post请求使用data接收参数
     ///返回正常
-    print(response.data);
+    // print(response.data);
     // print(response.data['code']);
-    if (response.data['code'] == 200||response.data['code'] == 0) {
+    if (response.data['res_code'] == 200||response.data['res_code'] == 0) {
+      print("code200");
+      print(response.data);
       return response; //返回请求结果
     }
     else {
@@ -69,7 +72,7 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
           backgroundColor: Colors.black38,
           textColor: Colors.white,
           fontSize: 16.0);
-      print(response.data['message']);
+      print(response.data['msg']);
       print(response.data);
       // Future.delayed(Duration(milliseconds: 800)).then((e) {
       //   Router.navigatorKey.currentState.pushNamedAndRemoveUntil('/login', (route) => false);
