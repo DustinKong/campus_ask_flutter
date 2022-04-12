@@ -341,7 +341,7 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
           ),
           Container(height: 5,color: ColorsUtil.hexColor(0xF0F0F0),),
           Container(
-            height:480.h,
+            // height:280.h,
             color: ColorsUtil.hexColor(0xF0F0F0),
             child: FutureBuilder(
               builder: _buildFuture,
@@ -374,6 +374,8 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
         LogUtil.d(snapshot.data);
         List showList = snapshot.data.data['data']['records'];
         return ListView.builder(
+            shrinkWrap: true, //解决无限高度问题
+            physics: NeverScrollableScrollPhysics(),
             itemCount: showList.length,
             itemBuilder: (context, index) {
               return Container(

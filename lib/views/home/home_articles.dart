@@ -10,12 +10,12 @@ import '../api/SpUtil.dart';
 import '../api/FutureDioToken.dart';
 import '../api/LogUtil.dart';
 
-class HomeIndexPage extends StatefulWidget {
+class HomeArticlesPage extends StatefulWidget {
   @override
-  _HomeIndexPageState createState() => _HomeIndexPageState();
+  _HomeArticlesPageState createState() => _HomeArticlesPageState();
 }
 
-class _HomeIndexPageState extends State<HomeIndexPage> {
+class _HomeArticlesPageState extends State<HomeArticlesPage> {
   var _futureBuilderFuture;
   // Future _gerData() async {
   //   var response = HttpUtil()
@@ -27,7 +27,9 @@ class _HomeIndexPageState extends State<HomeIndexPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getData = FutureDio('post', Api.login, {"sid": "076003"});
+    _getData = FutureDio('post', Api.login, {"sid": "076003"}).then((res) {
+      print(res.data);
+    });
     _futureBuilderFuture = _getData;
     // LogUtil.init(title: "来自LogUtil",limitLength:800);
 
@@ -85,12 +87,7 @@ class _HomeIndexPageState extends State<HomeIndexPage> {
           return Center(
             child: Text("暂无数据"),
           );
-        LogUtil.d('finished');
-        LogUtil.d(snapshot.data);
-        List showList = snapshot.data.data['data']['records'];
-        return ListView.builder(
-            itemCount: showList.length,
-            itemBuilder: (context, index) {
+        return ListView.builder(itemBuilder: (context, index) {
           return Container();
         });
       default:

@@ -196,12 +196,15 @@ class _GroundFormActState extends State<GroundFormAct> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-            leading:  IconButton(
-              icon:  Icon(Icons.arrow_back,color: Colors.black,),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
             ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           elevation: 0, //隐藏底部阴影分割线
           title: new Text(
             "编辑内容",
@@ -387,7 +390,30 @@ class _GroundFormActState extends State<GroundFormAct> {
                         color: Colors.transparent, // 设为透明色
                         elevation: 0, // 正常时阴影隐藏
                         highlightElevation: 0, // 点击时阴影隐藏
-                        onPressed: () {},
+                        onPressed: () {
+                          FutureDio('post', Api.insertArticle, {
+                            "title": name.text,
+                            "content": textController.text,
+                            "authorName": "张三",
+                            "articleType": 1
+                          }).then((res) {
+                            print(res.data);
+                            Fluttertoast.showToast(
+                                    msg: "发布成功",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.pink,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0)
+                                .then((value) {
+                              Future.delayed(Duration(milliseconds: 1000)).then((e) {
+                                Navigator.pop(context);
+                              });
+
+                            });
+                          });
+                        },
                         child: Container(
                           alignment: Alignment.center,
                           height: 50,

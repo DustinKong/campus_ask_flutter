@@ -103,10 +103,7 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
             type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
-                title:  Text(
-                  '首页',
-                  style: TextStyle(color: Color(_currentIndex == 0 ? 0xff3954A3 : 0xff000000)),
-                ),
+                label: '首页',
                 backgroundColor: Colors.transparent,
                 icon:  Container(
                   height: 40,
@@ -129,10 +126,11 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
               ),
 
               BottomNavigationBarItem(
-                title:  Text(
-                  '操场',
-                  style: TextStyle(color: Color(_currentIndex == 0 ? 0xff3954A3 : 0xff000000)),
-                ),
+                // title:  Text(
+                //                 //   '操场',
+                //                 //   style: TextStyle(color: Color(_currentIndex == 0 ? 0xff3954A3 : 0xff000000)),
+                //                 // ),
+                label: '操场',
                 backgroundColor: Colors.transparent,
                 icon:  Container(
                   height: 40,
@@ -153,10 +151,11 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                   ),
                 ),
               ),BottomNavigationBarItem(
-                title:  Text(
-                  '消息',
-                  style: TextStyle(color: Color(_currentIndex == 0 ? 0xff3954A3 : 0xff000000)),
-                ),
+                // title:  Text(
+                //   '消息',
+                //   style: TextStyle(color: Color(_currentIndex == 0 ? 0xff3954A3 : 0xff000000)),
+                // ),
+                label: '操场',
                 backgroundColor: Colors.transparent,
                 icon:  Container(
                   height: 40,
@@ -198,10 +197,12 @@ class BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                           fit: BoxFit.scaleDown, image: ExactAssetImage('assets/images/tabbar/我的-on@3x.png', scale: 2.3)),
                     ),
                   ),
-                  title:  Text(
-                    '我的',
-                    style: TextStyle(color: Color(_currentIndex == 4 ? 0xff3954A3 : 0xff000000)),
-                  )),
+                  label: '我的',
+                  // title:  Text(
+                  //   '我的',
+                  //   style: TextStyle(color: Color(_currentIndex == 4 ? 0xff3954A3 : 0xff000000)),
+                  //)
+              ),
             ],
             //这是底部导航栏自带的位标属性，表示底部导航栏当前处于哪个导航标签。给他一个初始值0，也就是默认第一个标签页面。
             currentIndex: _currentIndex,

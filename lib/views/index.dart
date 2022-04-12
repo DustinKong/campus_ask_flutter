@@ -24,7 +24,11 @@ class _IndexState extends State<Index> {
     'assets/images/home/轮播图1@2x.png',
     'assets/images/home/轮播图2@2x.png',
   ];
-  List showList = [];
+  List showList = [
+    {"title": "Join us!闪闪发光的浙小商们,一起来重新定义青春", "pic": 'assets/images/home/图1@2x.png', "time": "来源：浙江工商大学 2022-02-27"},
+    {"title": "【招生服务协会】春季纳新│春风十里，我们等你", "pic": 'assets/images/home/图2@2x.png', "time": "来源：商大社团汇 2022-02-14"},
+    {"title": "第十五届读书节│“拼搏前行扬帆逐梦”征文大赛", "pic": 'assets/images/home/图3@2x.png', "time": "来源：浙江工商大学 2022-02-17"},
+  ];
   String university = "浙江工商大学";
   ScrollController _scrollController;
   FocusNode searchFocusNode = FocusNode();
@@ -45,9 +49,9 @@ class _IndexState extends State<Index> {
     //   FutureDio('get', Api.getUserPermissionByToken, {"pageNo":1,"pageSize":33}).then((res) {
     //     print(res.data['data']);
     //   });
-    _getData = FutureDio('post', Api.login, {}).then((res) {
-      print(res);
-    });
+    // _getData = FutureDio('post', Api.login, {}).then((res) {
+    //   print(res);
+    // });
   }
 
   Widget _buildFuture(BuildContext context, AsyncSnapshot snapshot) {
@@ -64,7 +68,10 @@ class _IndexState extends State<Index> {
       case ConnectionState.done:
         print('done');
         if (snapshot.hasError) return Text('Error: ${snapshot.error}');
-        if(!snapshot.hasData) return Center(child: Text("暂无数据"),);
+        if (!snapshot.hasData)
+          return Center(
+            child: Text("暂无数据"),
+          );
         return ListView.builder(itemBuilder: (context, index) {
           return InkWell(
             child: Container(
@@ -396,14 +403,14 @@ class _IndexState extends State<Index> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.all(10),
-              child: InkWell(child: Image.asset(
-                'assets/images/home/引导认证小卡片@2x.png',
-                fit: BoxFit.cover,
-              ),onTap: (){
-
-              },)
-            ),
+                padding: EdgeInsets.all(10),
+                child: InkWell(
+                  child: Image.asset(
+                    'assets/images/home/引导认证小卡片@2x.png',
+                    fit: BoxFit.cover,
+                  ),
+                  onTap: () {},
+                )),
 
             Row(
               children: <Widget>[
@@ -461,10 +468,34 @@ class _IndexState extends State<Index> {
                 )
               ],
             ),
-            FutureBuilder(
-              builder: _buildFuture,
-              future: _getData,
-            ),
+            Container(
+              height: 260.h,
+              child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: 3,
+
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      child:ListTile(
+                        title: Text(showList[index]['title']),
+                        subtitle: Text(showList[index]['time']),
+                        trailing: Container(
+                          child: Image.asset(
+                            showList[index]['pic'],
+                            height: 60.h,
+                            width: 150.w,
+                          ),
+                        ),
+                      ),
+                      onTap: () {},
+                    );
+                  }),
+            )
+
+            // FutureBuilder(
+            //   builder: _buildFuture,
+            //   future: _getData,
+            // ),
           ],
         ));
   }

@@ -115,7 +115,7 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.black38,
+        backgroundColor: Colors.pink,
         textColor: Colors.white,
         fontSize: 16.0);
     // Future.delayed(Duration(milliseconds: 800)).then((e) {
