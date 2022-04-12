@@ -156,7 +156,7 @@ class _HomeGuidePageState extends State<HomeGuidePage> {
               ],
             ),
             Container(
-              height: 600.h,
+              // height: 600.h,
               color: ColorsUtil.hexColor(0xF0F0F0),
               child: FutureBuilder(
                 builder: _buildFuture,
@@ -189,6 +189,8 @@ class _HomeGuidePageState extends State<HomeGuidePage> {
         List showList = snapshot.data.data['data']['records'];
         if(type==1)
         return ListView.builder(
+            shrinkWrap: true, //解决无限高度问题
+            physics: NeverScrollableScrollPhysics(),
             itemCount: showList.length,
             itemBuilder: (context, index) {
               return Container(
@@ -218,6 +220,8 @@ class _HomeGuidePageState extends State<HomeGuidePage> {
             });
         else
           return ListView.builder(
+              shrinkWrap: true, //解决无限高度问题
+              physics: NeverScrollableScrollPhysics(),
             itemCount: showList.length,
             itemBuilder: (context, index) {
               return Container(
