@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import './LogUtil.dart';
 import '../../main.dart';
 import '../api/SpUtil.dart';
-
+bool showToast=true;
 int errorRequestTimes = 0;
 // ignore: non_constant_identifier_names
 Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
@@ -26,7 +26,7 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
   /// 自定义Header
   Map<String, dynamic> httpHeaders = {
     'content-type': 'application/json',
-    'auth-token':'oQzN85Sujph6QohSCTTTTTTTTest'
+    'auth-token':'wx_auth_token_id_7f1e38e3cd8d46ff99c4228e82e17466'
     // 'X-Access-Token': '${SpUtil.preferences.getString('user_token')}'
     //'Token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTcyNTcxNDQsInVzZXJuYW1lIjoid3gtc2Vzc2lvbi11c2VyOm90SG5rNU16aDYzamJScmZMcXk3aE9uYlBDbTQifQ.qA1HM8By7XBvgz75cE52B1bHrX4heNZcRXQ4W8McbXI'
   };
@@ -69,6 +69,7 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
     // else {
     else if (response.data['res_code'] == 401) {
       print("code401");
+      if(showToast)
       Fluttertoast.showToast(
           msg: response.data['msg']??"请重新登录!",
           toastLength: Toast.LENGTH_SHORT,
@@ -87,6 +88,7 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
     }
     else{
       print(response.data['res_code']);
+      if(showToast)
       Fluttertoast.showToast(
           msg: response.data['msg']??"请重新登录!",
           toastLength: Toast.LENGTH_SHORT,
@@ -130,6 +132,7 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
     // print(e);
     LogUtil.d(e);
     print("catch error");
+    if(showToast)
     Fluttertoast.showToast(
         msg: "连接错误",
         toastLength: Toast.LENGTH_SHORT,

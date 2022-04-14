@@ -37,10 +37,10 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
     //   LogUtil.d(res.data);
     //   // print(res.data);
     // });
-    var log = "我是日志";
+    // var log = "我是日志";
     //仅在Debug时打印
-    LogUtil.d(log);
-    LogUtil.d("我是日志");
+    // LogUtil.d(log);
+    // LogUtil.d("我是日志");
   }
 
   @override
@@ -462,7 +462,10 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
                                     }).then((res) {
                                       print(res);
                                       setState(() {
-                                        showList[index]['articleLike']=(showList[index]['articleLike']+1).toString();
+                                        if(showList[index]['articleLike'] is int)
+                                          showList[index]['articleLike']=(showList[index]['articleLike']+1).toString();
+                                        else
+                                          showList[index]['articleLike']=(int.parse(showList[index]['articleLike'])+1).toString();
                                         showList[index]['hasLike']=true;
                                       });
                                     });
@@ -474,7 +477,10 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
                                     }).then((res) {
                                       print(res);
                                       setState(() {
-                                        showList[index]['articleLike']=(showList[index]['articleLike']-1).toString();
+                                        if(showList[index]['articleLike'] is int)
+                                          showList[index]['articleLike']=(showList[index]['articleLike']-1).toString();
+                                        else
+                                          showList[index]['articleLike']=(int.parse(showList[index]['articleLike'])-1).toString();
                                         showList[index]['hasLike']=false;
                                       });
                                     });

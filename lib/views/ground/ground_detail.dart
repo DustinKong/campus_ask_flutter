@@ -122,6 +122,10 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
                                 ),
                               ),
                               onTap: () {
+
+                                   FutureDio('post', Api.insertForumComment,{"commentContent":commentController.text,"articleId":widget.arguments['id']} ).then((res){
+                                    print(res.data);
+                                  });
                               },
                             )
                           ],
@@ -235,10 +239,47 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
                 Expanded(
                     child: Row(
                   children: <Widget>[
-                    Image.asset(
-                      'assets/images/ground/点赞@2x.png',
-                      height: 18,
-                      width: 18,
+                    InkWell(
+                      child: Image.asset(
+                        show['hasLike'] == false
+                            ? 'assets/images/ground/点赞@2x.png'
+                            : 'assets/images/ground/点赞-on.png',
+                        height: 18,
+                        width: 18,
+                      ),
+                      onTap: () {
+                        if (show['hasLike'] == false) {
+                          FutureDio('get', Api.giveALikeInForum, {
+                            "likedItemId": show['articleId'].toString(),
+                            "likedItemType": "1"
+                          }).then((res) {
+                            print(res);
+                            setState(() {
+                              if(show['articleLike'] is int)
+                                show['articleLike']=(show['articleLike']+1).toString();
+                              else
+                                show['articleLike']=(int.parse(show['articleLike'])+1).toString();
+                              
+                              show['hasLike']=true;
+                            });
+                          });
+                        }
+                        else{
+                          FutureDio('get', Api.cancelALikeInForum, {
+                            "likedItemId": show['articleId'],
+                            "likedItemType": "1"
+                          }).then((res) {
+                            print(res);
+                            setState(() {
+                              if(show['articleLike'] is int)
+                                show['articleLike']=(show['articleLike']-1).toString();
+                              else
+                                show['articleLike']=(int.parse(show['articleLike'])-1).toString();
+                              show['hasLike']=false;
+                            });
+                          });
+                        }
+                      },
                     ),
                     Text(
                       show['articleLike'].toString(),
