@@ -39,13 +39,14 @@ class _IndexState extends State<Index> {
   void initState() {
     super.initState();
     //判断是否登录
-    // String token = SpUtil.preferences.getString('user_token');
-    // print(token);
-    // if (token == null) {
-    //   Future.delayed(Duration(milliseconds: 100)).then((e) {
-    //     Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-    //   });
-    // } else
+    String token = SpUtil.preferences.getString('user_token');
+    print(token);
+    if (token == null) {
+      Future.delayed(Duration(milliseconds: 100)).then((e) {
+        Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+      });
+    }
+    //else
     //   FutureDio('get', Api.getUserPermissionByToken, {"pageNo":1,"pageSize":33}).then((res) {
     //     print(res.data['data']);
     //   });
@@ -374,6 +375,7 @@ class _IndexState extends State<Index> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
+                        SpUtil.preferences.clear();
                         Fluttertoast.showToast(
                             msg: "敬请期待",
                             toastLength: Toast.LENGTH_SHORT,

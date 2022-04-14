@@ -69,7 +69,7 @@ class MainLoginPageState extends State<MainLoginPage> {
                   aspectRatio: 16 / 9,
                   child: Container(
                     //                    width: 400,
-                    child: Image.asset('assets/images/imgLogin.jpg', fit: BoxFit.cover),
+                    child: Image.asset('assets/images/home/轮播图0@2x(1).png', fit: BoxFit.cover),
                   ),
                 )
               ],
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
   var verifyPhoneNum = new TextEditingController();
   var emailVerifyNum = new TextEditingController();
   var codeController = new TextEditingController();
-  var randomPic=null;
+  var randomPic = null;
   var idCode;
 
   Color btnColor = Colors.deepOrange;
@@ -288,84 +288,248 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   // 间隔
                   SizedBox(height: 20),
-                  Padding(
-                    padding: EdgeInsets.all(0),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: TextFormField(
-                            // 是否自动对焦
-                            autofocus: false,
-                            // 装饰
-                            controller: randomCode,
-                            decoration: InputDecoration(
-                                fillColor: Color(0xFFf9f8fd),
-                                filled: true,
-                                prefixIcon: Icon(
-                                  Icons.phone_android,
-                                  color: Color(0xff3954A3),
-                                ),
-                                contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                hintText: '验证码',
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none, borderRadius: BorderRadius.circular(22))),
-                          ),
-                        ),
-                        Expanded(
-                            child: InkWell(
-                                child:randomPic!=null? Image.memory(
-                                  base64.decode(randomPic.split(',')[1]),
-                                  height: 50, //设置高度
-                                  width: 60, //设置度
-                                  fit: BoxFit.fill, //填充
-                                  gaplessPlayback: true, //防止重绘
-                                ):Container(width: 60,height: 50,),
-                                onTap: () {
-                                  getRandom();
-                                })),
-                      ],
-                    ),
-                  )
+                  // Padding(
+                  //   padding: EdgeInsets.all(0),
+                  //   child: Row(
+                  //     children: <Widget>[
+                  //       Expanded(
+                  //         child: TextFormField(
+                  //           // 是否自动对焦
+                  //           autofocus: false,
+                  //           // 装饰
+                  //           controller: randomCode,
+                  //           decoration: InputDecoration(
+                  //               fillColor: Color(0xFFf9f8fd),
+                  //               filled: true,
+                  //               prefixIcon: Icon(
+                  //                 Icons.phone_android,
+                  //                 color: Color(0xff3954A3),
+                  //               ),
+                  //               contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  //               hintText: '验证码',
+                  //               border: OutlineInputBorder(
+                  //                   borderSide: BorderSide.none, borderRadius: BorderRadius.circular(22))),
+                  //         ),
+                  //       ),
+                  //       Expanded(
+                  //           child: InkWell(
+                  //               child:randomPic!=null? Image.memory(
+                  //                 base64.decode(randomPic.split(',')[1]),
+                  //                 height: 50, //设置高度
+                  //                 width: 60, //设置度
+                  //                 fit: BoxFit.fill, //填充
+                  //                 gaplessPlayback: true, //防止重绘
+                  //               ):Container(width: 60,height: 50,),
+                  //               onTap: () {
+                  //                 getRandom();
+                  //               })),
+                  //     ],
+                  //   ),
+                  // )
                 ],
               ),
             ),
             SizedBox(
               height: 10,
             ),
-            Container(
-              height: 44,
-              width: MediaQuery.of(context).size.width - 220,
-//            width: 320,
-//              decoration: BoxDecoration(
-//                color: Color(0xFFbabdd5), borderRadius: BorderRadius.circular(22)),
-              child: RaisedButton(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22))),
-                color: btnColor,
-                child: Text(
-                  '登录',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-                onPressed: () {
-                  if (username.text != "" && password.text != "" && randomCode != "") {
-                    print('正在登录');
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22))),
+                    color: Colors.green,
+                    child: Text(
+                      '微信登录',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    onPressed: () {
+                      if (username.text != "" && password.text != "") {
+                        print('正在登录');
 //                      print(verifyPhoneNum.text);
-                    _vercodeLogin();
-                  } else {
-                    Fluttertoast.showToast(
-                        msg: "请先填写信息",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.black38,
-                        textColor: Colors.white,
-                        fontSize: 16.0);
-                  }
-                },
-              ),
+//                     _vercodeLogin();
+                        SpUtil.preferences.setString("user_token", "xxx");
+                        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "请先填写信息",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.black38,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                      }
+                    },
+                  ),
+                  width: 120,
+                ),
+                SizedBox(width: 15,),
+                Container(
+                  child: RaisedButton(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22))),
+                    color: btnColor,
+                    child: Text(
+                      '普通登录',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
+                    onPressed: () {
+                      if (username.text != "" && password.text != "") {
+                        print('正在登录');
+//                      print(verifyPhoneNum.text);
+//                     _vercodeLogin();
+                        SpUtil.preferences.setString("user_token", "xxx");
+                        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "请先填写信息",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.black38,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                      }
+                    },
+                  ),
+                  width: 120,
+                ),
+//                     Container(
+//                       width: 120,
+//                       child: RaisedButton(
+//
+//                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22))),
+//                         color: btnColor,
+//                         child: Text(
+//                           '普通登录',
+//                           style: TextStyle(fontSize: 20, color: Colors.white),
+//                         ),
+//                         onPressed: () {
+//                           if (username.text != "" && password.text != "") {
+//                             print('正在登录');
+// //                      print(verifyPhoneNum.text);
+// //                     _vercodeLogin();
+//                             SpUtil.preferences.setString("user_token", "xxx");
+//                             Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+//                           } else {
+//                             Fluttertoast.showToast(
+//                                 msg: "请先填写信息",
+//                                 toastLength: Toast.LENGTH_SHORT,
+//                                 gravity: ToastGravity.CENTER,
+//                                 timeInSecForIosWeb: 1,
+//                                 backgroundColor: Colors.black38,
+//                                 textColor: Colors.white,
+//                                 fontSize: 16.0);
+//                           }
+//                         },
+//                       ),
+//
+//                     )
+              ],
             ),
-            RaisedButton(child: Text("go"),onPressed: (){
-              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-            },)
+//             Container(
+//                 height: 44,
+//                 width: MediaQuery.of(context).size.width - 220,
+// //            width: 320,
+// //              decoration: BoxDecoration(
+// //                color: Color(0xFFbabdd5), borderRadius: BorderRadius.circular(22)),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     Container(
+//                       child: RaisedButton(
+//                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22))),
+//                         color: Colors.green,
+//                         child: Text(
+//                           '微信登录',
+//                           style: TextStyle(fontSize: 20, color: Colors.white),
+//                         ),
+//                         onPressed: () {
+//                           if (username.text != "" && password.text != "") {
+//                             print('正在登录');
+// //                      print(verifyPhoneNum.text);
+// //                     _vercodeLogin();
+//                             SpUtil.preferences.setString("user_token", "xxx");
+//                             Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+//                           } else {
+//                             Fluttertoast.showToast(
+//                                 msg: "请先填写信息",
+//                                 toastLength: Toast.LENGTH_SHORT,
+//                                 gravity: ToastGravity.CENTER,
+//                                 timeInSecForIosWeb: 1,
+//                                 backgroundColor: Colors.black38,
+//                                 textColor: Colors.white,
+//                                 fontSize: 16.0);
+//                           }
+//                         },
+//                       ),
+//                       width: 120,
+//                     ),
+//                     Container(
+//                       child: RaisedButton(
+//                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22))),
+//                         color: btnColor,
+//                         child: Text(
+//                           '普通登录',
+//                           style: TextStyle(fontSize: 20, color: Colors.white),
+//                         ),
+//                         onPressed: () {
+//                           if (username.text != "" && password.text != "") {
+//                             print('正在登录');
+// //                      print(verifyPhoneNum.text);
+// //                     _vercodeLogin();
+//                             SpUtil.preferences.setString("user_token", "xxx");
+//                             Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+//                           } else {
+//                             Fluttertoast.showToast(
+//                                 msg: "请先填写信息",
+//                                 toastLength: Toast.LENGTH_SHORT,
+//                                 gravity: ToastGravity.CENTER,
+//                                 timeInSecForIosWeb: 1,
+//                                 backgroundColor: Colors.black38,
+//                                 textColor: Colors.white,
+//                                 fontSize: 16.0);
+//                           }
+//                         },
+//                       ),
+//                       width: 120,
+//                     ),
+// //                     Container(
+// //                       width: 120,
+// //                       child: RaisedButton(
+// //
+// //                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(22))),
+// //                         color: btnColor,
+// //                         child: Text(
+// //                           '普通登录',
+// //                           style: TextStyle(fontSize: 20, color: Colors.white),
+// //                         ),
+// //                         onPressed: () {
+// //                           if (username.text != "" && password.text != "") {
+// //                             print('正在登录');
+// // //                      print(verifyPhoneNum.text);
+// // //                     _vercodeLogin();
+// //                             SpUtil.preferences.setString("user_token", "xxx");
+// //                             Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+// //                           } else {
+// //                             Fluttertoast.showToast(
+// //                                 msg: "请先填写信息",
+// //                                 toastLength: Toast.LENGTH_SHORT,
+// //                                 gravity: ToastGravity.CENTER,
+// //                                 timeInSecForIosWeb: 1,
+// //                                 backgroundColor: Colors.black38,
+// //                                 textColor: Colors.white,
+// //                                 fontSize: 16.0);
+// //                           }
+// //                         },
+// //                       ),
+// //
+// //                     )
+//                   ],
+//                 )),
+            // RaisedButton(child: Text("go"),onPressed: (){
+            //   Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            // },)
           ],
         ),
       ),
