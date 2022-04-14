@@ -393,9 +393,9 @@ class _GroundFormActState extends State<GroundFormAct> {
                         onPressed: () {
                           FutureDio('post', Api.insertArticle, {
                             "title": name.text,
-                            "content": textController.text,
-                            "authorName": "张三",
-                            "articleType": 1
+                            "textContent": textController.text,
+                            "imgArray": [],
+                            "themeId": 1
                           }).then((res) {
                             print(res.data);
                             Fluttertoast.showToast(

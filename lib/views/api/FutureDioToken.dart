@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import './LogUtil.dart';
 import '../../main.dart';
 import '../api/SpUtil.dart';
 
@@ -54,18 +57,20 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
     }
     //注意get请求使用queryParameters接收参数，post请求使用data接收参数
     ///返回正常
-    // print(response.data);
+    print("back");
+    print(response.data);
+    // print(response.data['res_code'].toString());
     // print(response.data['code']);
     if (response.data['res_code'] == 200||response.data['res_code'] == 0) {
       print("code200");
-      print(response.data);
+      print(response.data['res_code']);
       return response; //返回请求结果
     }
-    else {
-    // else if (response.data['code'] == 401) {
+    // else {
+    else if (response.data['res_code'] == 401) {
       print("code401");
       Fluttertoast.showToast(
-          msg: response.data['message']??"请重新登录!",
+          msg: response.data['msg']??"请重新登录!",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -74,10 +79,24 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
           fontSize: 16.0);
       print(response.data['msg']);
       print(response.data);
+      return response;
       // Future.delayed(Duration(milliseconds: 800)).then((e) {
       //   Router.navigatorKey.currentState.pushNamedAndRemoveUntil('/login', (route) => false);
       // });
       // Router.navigatorKey.currentState.pushNamedAndRemoveUntil('/login', (route) => false);
+    }
+    else{
+      print(response.data['res_code']);
+      Fluttertoast.showToast(
+          msg: response.data['msg']??"请重新登录!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black38,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      print(response.data['msg']);
+      print(response.data);
     }
     ///接口错误
     // else if (response.data['code'] == -1) {
@@ -108,10 +127,11 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
     //   }
     // }
   } catch (e) {
-    print(e);
-    print("catch");
+    // print(e);
+    LogUtil.d(e);
+    print("catch error");
     Fluttertoast.showToast(
-        msg: "连接超时",
+        msg: "连接错误",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,

@@ -15,8 +15,14 @@ class Api {
   static const String getArticleById = BASE_URL + '/ForumController/getArticleById'; //从id获取文章
   static const String getNewComment = BASE_URL + '/ForumController/getNewComment'; //从id获取评论
   static const String articles = BASE_URL + '/ArticleController/articles'; //获取办事流程和政策文件列表
+  static const String GetDetailArticleController = BASE_URL + '/ArticleController/GetDetailArticleController'; //通过ID获取文章具体数据
+
   static const String telephones = BASE_URL + '/ArticleController/telephones'; //获取电话号码信息列表
-  static const String insertArticle = BASE_URL + '/ArticleController/insertArticle'; //获取电话号码信息列表
+  static const String insertArticle = BASE_URL + '/ForumController/insertForumArticle'; //论坛发帖
+
+  static const String giveALikeInForum = BASE_URL + '/ForumController/giveALikeInForum'; //论坛点赞一次
+  static const String cancelALikeInForum = BASE_URL + '/ForumController/cancelALikeInForum'; //论坛取消点赞一次
+  static const String insertForumComment = BASE_URL + '/ForumController/insertForumComment'; //论坛发布评论
 
 
   static const String taskStandard = BASE_URL + '/jeecg-boot/prodplan/prodPlan/list'; //prod_plan-分页列表查询

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../views/index.dart';
 import '../views/home/home_plan.dart';
 import '../views/home/home_standard.dart';
+import '../views/home/home_articles.dart';
 import '../views/home/home_guide.dart';
 import '../views/my/my_index.dart';
 import '../views/my/my_about.dart';
@@ -29,6 +30,7 @@ final routes = {
   //
   // '/studyDetailAllPage': (context) => StudyDetailAllPage(),
   '/GroundDetailPage': (context,{arguments}) => GroundDetailPage(arguments:arguments),
+  '/HomeArticlesPage': (context,{arguments}) => HomeArticlesPage(arguments:arguments),
   // '/studyDetailOfflinePage': (context,{arguments}) => StudyDetailOfflinePage(arguments:arguments),
   // '/studyDetailVideoPage': (context,{arguments}) => StudyDetailVideoPage(arguments:arguments),
 

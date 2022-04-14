@@ -197,6 +197,11 @@ class _HomeGuidePageState extends State<HomeGuidePage> {
                 margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: ListTile(
+                    onTap: (){
+                      print(showList[index]['articleId']);
+                      Navigator.pushNamed(context, '/HomeArticlesPage',
+                          arguments: {'id': showList[index]['articleId'],"content":showList[index]['articleContent']});
+                    },
                     contentPadding: EdgeInsets.fromLTRB(10, 5, 5, 10),
                     title: Text(
                       (index + 1).toString() + "." + showList[index]['articleTitle'],

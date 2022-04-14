@@ -339,7 +339,10 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
               ],
             ),
           ),
-          Container(height: 5,color: ColorsUtil.hexColor(0xF0F0F0),),
+          Container(
+            height: 5,
+            color: ColorsUtil.hexColor(0xF0F0F0),
+          ),
           Container(
             // height:280.h,
             color: ColorsUtil.hexColor(0xF0F0F0),
@@ -350,7 +353,6 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
           ),
         ],
       ),
-
     );
   }
 
@@ -380,16 +382,15 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
             itemBuilder: (context, index) {
               return Container(
                 margin: EdgeInsets.fromLTRB(10, 5, 5, 10),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
                 height: 110.h,
                 child: Column(
                   children: <Widget>[
                     ListTile(
                         // isThreeLine:true,
-                        onTap: (){
-                          Navigator.pushNamed(context, '/GroundDetailPage', arguments: {'id': showList[index]['articleId'].toString()});
+                        onTap: () {
+                          Navigator.pushNamed(context, '/GroundDetailPage',
+                              arguments: {'id': showList[index]['articleId'].toString()});
                         },
                         leading: ClipOval(
                           child: CachedNetworkImage(
@@ -399,12 +400,18 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
                             imageUrl: showList[index]['userEntity']['avatarUrl'],
                           ),
                         ),
-                        title: Text(showList[index]['userEntity']['nickname'],style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                        title: Text(
+                          showList[index]['userEntity']['nickname'],
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                        ),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(showList[index]['createTime']),
-                            Text(showList[index]['articleText'],style: TextStyle(color: Colors.black),),
+                            Text(
+                              showList[index]['articleText'],
+                              style: TextStyle(color: Colors.black),
+                            ),
                           ],
                         ),
                         trailing: Container(
@@ -433,51 +440,81 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
                         )),
                     Container(
                       margin: EdgeInsets.only(left: 65.w),
-                      width: ScreenUtil().screenWidth-30.w,
+                      width: ScreenUtil().screenWidth - 30.w,
                       child: Row(
                         children: <Widget>[
                           Expanded(
                               child: Row(
-                                children: <Widget>[
-                                  Image.asset(
-                                    'assets/images/ground/点赞@2x.png',
-                                    height: 18,
-                                    width: 18,
-                                  ),
-                                  Text(
-                                    showList[index]['articleLike'].toString(),
-                                    style: TextStyle(color: Colors.grey),
-                                  )
-                                ],
-                              )),
+                            children: <Widget>[
+                              InkWell(
+                                child: Image.asset(
+                                  showList[index]['hasLike'] == false
+                                      ? 'assets/images/ground/点赞@2x.png'
+                                      : 'assets/images/ground/点赞-on.png',
+                                  height: 18,
+                                  width: 18,
+                                ),
+                                onTap: () {
+                                  if (showList[index]['hasLike'] == false) {
+                                    FutureDio('get', Api.giveALikeInForum, {
+                                      "likedItemId": showList[index]['articleId'].toString(),
+                                      "likedItemType": "1"
+                                    }).then((res) {
+                                      print(res);
+                                      setState(() {
+                                        showList[index]['articleLike']=(showList[index]['articleLike']+1).toString();
+                                        showList[index]['hasLike']=true;
+                                      });
+                                    });
+                                  }
+                                  else{
+                                    FutureDio('get', Api.cancelALikeInForum, {
+                                      "likedItemId": showList[index]['articleId'],
+                                      "likedItemType": "1"
+                                    }).then((res) {
+                                      print(res);
+                                      setState(() {
+                                        showList[index]['articleLike']=(showList[index]['articleLike']-1).toString();
+                                        showList[index]['hasLike']=false;
+                                      });
+                                    });
+                                  }
+                                },
+                              ),
+                              Text(
+                                showList[index]['articleLike'].toString(),
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                          )),
                           Expanded(
                               child: Row(
-                                children: <Widget>[
-                                  Image.asset(
-                                    'assets/images/ground/评论@2x.png',
-                                    height: 18,
-                                    width: 18,
-                                  ),
-                                  Text(
-                                    "回复",
-                                    style: TextStyle(color: Colors.grey),
-                                  )
-                                ],
-                              )),
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/ground/评论@2x.png',
+                                height: 18,
+                                width: 18,
+                              ),
+                              Text(
+                                "回复",
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                          )),
                           Expanded(
                               child: Row(
-                                children: <Widget>[
-                                  Image.asset(
-                                    'assets/images/ground/分享@2x.png',
-                                    height: 18,
-                                    width: 18,
-                                  ),
-                                  Text(
-                                    "分享",
-                                    style: TextStyle(color: Colors.grey),
-                                  )
-                                ],
-                              )),
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/ground/分享@2x.png',
+                                height: 18,
+                                width: 18,
+                              ),
+                              Text(
+                                "分享",
+                                style: TextStyle(color: Colors.grey),
+                              )
+                            ],
+                          )),
                         ],
                       ),
                     )
