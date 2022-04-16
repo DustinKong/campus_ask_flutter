@@ -4,9 +4,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_baidu_mapapi_base/flutter_baidu_mapapi_base.dart';
-import 'package:flutter_baidu_mapapi_map/flutter_baidu_mapapi_map.dart';
-import 'package:flutter_baidu_mapapi_utils/flutter_baidu_mapapi_utils.dart';
 import './routes/Routes.dart';
 import './views/Tabs.dart';
 import './views/api/SpUtil.dart';
@@ -59,13 +56,13 @@ void realRunApp() async {
   /// 关闭高德log
 //   await enableFluttifyLog(false);
 
-  if(Platform.isIOS){
-    BMFMapSDK.setApiKeyAndCoordType(
-        '请输入百度开放平台申请的iOS端API KEY', BMF_COORD_TYPE.BD09LL);
-  }else if(Platform.isAndroid){
-// Android 目前不支持接口设置Apikey,
-// 请在主工程的Manifest文件里设置，详细配置方法请参考[https://lbs.baidu.com/ 官网][https://lbs.baidu.com/)demo
-    BMFMapSDK.setCoordType(BMF_COORD_TYPE.BD09LL);}
+//   if(Platform.isIOS){
+//     BMFMapSDK.setApiKeyAndCoordType(
+//         '请输入百度开放平台申请的iOS端API KEY', BMF_COORD_TYPE.BD09LL);
+//   }else if(Platform.isAndroid){
+// // Android 目前不支持接口设置Apikey,
+// // 请在主工程的Manifest文件里设置，详细配置方法请参考[https://lbs.baidu.com/ 官网][https://lbs.baidu.com/)demo
+//     BMFMapSDK.setCoordType(BMF_COORD_TYPE.BD09LL);}
 
   ///获取用户设备信息
 //  final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();

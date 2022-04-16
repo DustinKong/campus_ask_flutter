@@ -4,6 +4,8 @@ import '../views/home/home_plan.dart';
 import '../views/home/home_standard.dart';
 import '../views/home/home_articles.dart';
 import '../views/home/home_guide.dart';
+import '../views/home/home_verify.dart';
+import '../views/home/home_map.dart';
 import '../views/my/my_index.dart';
 import '../views/my/my_about.dart';
 import '../views/ground/ground_index.dart';
@@ -22,7 +24,9 @@ final routes = {
   '/myPage': (context) => MyPage(),
   '/homePlanPage': (context) => HomePlanPage(),
   '/homeStandardPage': (context) => HomeStandardPage(),
+  '/homeVerify': (context) => HomeVerify(),
   '/homeGuidePage': (context) => HomeGuidePage(),
+  '/homeMapPage': (context) => HomeMapPage(),
   '/myAboutPage': (context) => MyAboutPage(),
   '/groundFormAct': (context) => GroundFormAct(),
   // '/myRecordCoursePage': (context) => MyRecordCoursePage(),

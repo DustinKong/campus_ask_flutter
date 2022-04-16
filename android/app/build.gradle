@@ -45,7 +45,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.hangzhou.campus_ask_flutter"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -64,6 +64,7 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
 //            minifyEnabled true//开启混淆
             signingConfig signingConfigs.debug
+//            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -75,4 +76,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation('com.amap.api:3dmap:8.1.0')
 }

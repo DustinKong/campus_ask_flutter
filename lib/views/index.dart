@@ -35,6 +35,7 @@ class _IndexState extends State<Index> {
   TextEditingController searchController = new TextEditingController();
   int type = 1; //校园新闻 1 事物通知 2
   Future _getData;
+
   @override
   void initState() {
     super.initState();
@@ -46,6 +47,7 @@ class _IndexState extends State<Index> {
         Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
       });
     }
+
     //else
     //   FutureDio('get', Api.getUserPermissionByToken, {"pageNo":1,"pageSize":33}).then((res) {
     //     print(res.data['data']);
@@ -122,7 +124,10 @@ class _IndexState extends State<Index> {
                             university,
                             style: TextStyle(fontSize: 17),
                           ),
-                          IconButton(icon: Icon(Icons.keyboard_arrow_down), onPressed: () {})
+                          IconButton(icon: Icon(Icons.keyboard_arrow_down), onPressed: () {
+                            Navigator.pushNamed(context, '/homeVerify');
+
+                          })
                         ],
                       )),
                   flex: 2,
@@ -214,7 +219,7 @@ class _IndexState extends State<Index> {
                         // Navigator.push(context, MaterialPageRoute(builder: (content) {
                         //   return BottomNavigationWidget(index: 1, pageIndex: 0);
                         // }));
-                        Navigator.pushNamed(context, '/homeGuidePage');
+                        Navigator.pushNamed(context, '/homeMapPage');
                       },
                       child: Column(
                         children: <Widget>[
@@ -236,9 +241,7 @@ class _IndexState extends State<Index> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (content) {
-                          return BottomNavigationWidget(index: 1, pageIndex: 1);
-                        }));
+                        Navigator.pushNamed(context, '/homeMapPage');
                       },
                       child: Column(
                         children: <Widget>[
@@ -317,14 +320,7 @@ class _IndexState extends State<Index> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        Fluttertoast.showToast(
-                            msg: "敬请期待",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.deepOrangeAccent,
-                            textColor: Colors.white,
-                            fontSize: 16.0);
+                        Navigator.pushNamed(context, '/homeGuidePage');
                       },
                       child: Column(
                         children: <Widget>[

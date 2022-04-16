@@ -36,9 +36,12 @@
             <meta-data
                 android:name="flutterEmbedding"
                 android:value="2" />
+<!--            <meta-data-->
+<!--                android:name="com.baidu.lbsapi.API_KEY"-->
+<!--                android:value="eSNtd7V6LXNP2NGaWGhVV07Xwq8uaEUP" />-->
             <meta-data
-                android:name="com.baidu.lbsapi.API_KEY"
-                android:value="eSNtd7V6LXNP2NGaWGhVV07Xwq8uaEUP" />
+                android:name="com.amap.api.v2.apikey"
+                android:value="cbac812fe4ec67d852b4f4885e1f9c3f"/>
             <meta-data
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"

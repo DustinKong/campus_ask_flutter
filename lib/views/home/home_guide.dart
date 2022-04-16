@@ -54,7 +54,7 @@ class _HomeGuidePageState extends State<HomeGuidePage> {
           ),
           elevation: 0, //隐藏底部阴影分割线
           title: Text(
-            "校园导览",
+            "办事流程",
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w800),
           ),
           backgroundColor: Colors.white,
