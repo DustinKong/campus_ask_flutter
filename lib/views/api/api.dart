@@ -24,9 +24,11 @@ class Api {
   static const String cancelALikeInForum = BASE_URL + '/ForumController/cancelALikeInForum'; //论坛取消点赞一次
   static const String insertForumComment = BASE_URL + '/ForumController/insertForumComment'; //论坛发布评论
 
+  static const String GetAllBuildingInfoController = BASE_URL + '/BuildingController/GetAllBuildingInfoController'; //获取所有建筑物数据
+  static const String buildingTypes = BASE_URL + '/BuildingController/buildingTypes'; //获取建筑物类别
+
 
   static const String taskStandard = BASE_URL + '/jeecg-boot/prodplan/prodPlan/list'; //prod_plan-分页列表查询
-
   static const String Search = BASE_URL + '/wx/index/course/search'; //关键词搜索
   static const String prodPlan = BASE_URL + '/wx/index/courses'; //查询所有所有课程
   static const String CourseInfo = BASE_URL + '/wx/index/course/info'; //获取课程详情

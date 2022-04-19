@@ -64,8 +64,10 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
 //            minifyEnabled true//开启混淆
             signingConfig signingConfigs.debug
+           // minifyEnabled false //删除无用代码
 //            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles "proguard-rules.pro"
         }
     }
 }

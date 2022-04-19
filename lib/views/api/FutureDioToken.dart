@@ -26,7 +26,8 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
   /// 自定义Header
   Map<String, dynamic> httpHeaders = {
     'content-type': 'application/json',
-    'auth-token':'wx_auth_token_id_7f1e38e3cd8d46ff99c4228e82e17466'
+    // 'auth-token':'wx_auth_token_id_7f1e38e3cd8d46ff99c4228e82e17466'
+    'auth-token':'wx_auth_token_id_test'
     // 'X-Access-Token': '${SpUtil.preferences.getString('user_token')}'
     //'Token':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTcyNTcxNDQsInVzZXJuYW1lIjoid3gtc2Vzc2lvbi11c2VyOm90SG5rNU16aDYzamJScmZMcXk3aE9uYlBDbTQifQ.qA1HM8By7XBvgz75cE52B1bHrX4heNZcRXQ4W8McbXI'
   };

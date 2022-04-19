@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,32 +30,7 @@ class _HomeMapPageState extends State<HomeMapPage> {
   //   return response;
   // }
   Future _getData;
-  var showList = [
-    {
-      "pic": "assets/images/home/位置聊天@2x.png",
-      "title": "计算机与信息工程学院",
-      "subtitle": "这是关于计算机与信息工程学院的介绍",
-      "trail": "assets/images/home/array.png"
-    },
-    {
-      "pic": "assets/images/home/位置聊天@2x.png",
-      "title": "计算机与信息工程学院",
-      "subtitle": "这是关于计算机与信息工程学院的介绍",
-      "trail": "assets/images/home/array.png"
-    },
-    {
-      "pic": "assets/images/home/位置聊天@2x.png",
-      "title": "计算机与信息工程学院",
-      "subtitle": "这是关于计算机与信息工程学院的介绍",
-      "trail": "assets/images/home/array.png"
-    },
-    {
-      "pic": "assets/images/home/位置聊天@2x.png",
-      "title": "计算机与信息工程学院",
-      "subtitle": "这是关于计算机与信息工程学院的介绍",
-      "trail": "assets/images/home/array.png"
-    },
-  ];
+  var num=0;
   int type = 1;
   void _requestLocaitonPermission() async {
     PermissionStatus status = await Permission.location.request();
@@ -62,46 +39,66 @@ class _HomeMapPageState extends State<HomeMapPage> {
 
   static final CameraPosition _kInitialPosition = const CameraPosition(
     target: LatLng(30.30988, 120.38949),
-    zoom: 15.0,
+    zoom: 16.0,
   );
-
   ///自定义定位小蓝点
-  MyLocationStyleOptions _myLocationStyleOptions = MyLocationStyleOptions(false);
-
+  MyLocationStyleOptions _myLocationStyleOptions = MyLocationStyleOptions(true);
   ///是否显示比例尺
   bool _scaleEnabled = true;
-
   ///是否支持缩放手势
   bool _zoomGesturesEnabled = true;
-
   ///是否支持滑动手势
   bool _scrollGesturesEnabled = true;
-
   ///是否支持旋转手势
   bool _rotateGesturesEnabled = true;
-
   ///是否支持倾斜手势
   bool _tiltGesturesEnabled = true;
   static final LatLng mapCenter = const LatLng(30.30988, 120.38949);
-  final Map<String, Marker> _initMarkerMap = <String, Marker>{};
 
+  var marks=new List();
+  var sumLoc=new List();
+  AMapController _controller;
+  void _onMapCreated(AMapController controller) {
+    _controller = controller;
+  }
   @override
   void initState() {
     _requestLocaitonPermission();
     super.initState();
     // _futureBuilderFuture = _getData;
     // LogUtil.init(title: "来自LogUtil",limitLength:800)
+    FutureDio('get', Api.GetAllBuildingInfoController,{} ).then((res){
+      for(int k=0;k<6;k++){
+        final Map<String, Marker> _initMarkerMap = <String, Marker>{};
+        var tmp=res.data['data'][k]['singleBuildingData'];
+        var tmpB=new List();
+        print("yyy");
+        LogUtil.d(tmp);
+        for(int i=0;i<tmp.length;i++){
+          Map tmpA =Map();
+          LatLng position = LatLng(tmp[i]['latitude'],tmp[i]['longitude']);
+          _initMarkerMap[tmp[i]['title']]= Marker(position: position,icon:BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange));
+          tmpA['title']=tmp[i]['title'];
+          tmpA['img']=tmp[i]['img'][0];
+          tmpA['description']=tmp[i]['description'];
+          tmpA['buildingMapIcon']=tmp[i]['buildingMapIcon'];
+          tmpA['latitude']=tmp[i]['latitude'];
+          tmpA['longitude']=tmp[i]['longitude'];
+          tmpB.add(tmpA);
+        }
+        setState(() {
+          sumLoc.add(tmpB);
+          marks.add(_initMarkerMap);
+        });
+      }
+      LogUtil.d(sumLoc);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    for (int i = 0; i < 10; i++) {
-      LatLng position =
-          LatLng(mapCenter.latitude + sin(i * pi / 12.0) / 20.0, mapCenter.longitude + cos(i * pi / 12.0) / 20.0);
-      Marker marker = Marker(position: position);
-      _initMarkerMap[marker.id] = marker;
-    }
     final AMapWidget amap = AMapWidget(
+      onMapCreated: _onMapCreated,
       privacyStatement: ConstConfig.amapPrivacyStatement,
       apiKey: ConstConfig.amapApiKeys,
       initialCameraPosition: _kInitialPosition,
@@ -111,7 +108,7 @@ class _HomeMapPageState extends State<HomeMapPage> {
       rotateGesturesEnabled: _rotateGesturesEnabled,
       scrollGesturesEnabled: _scrollGesturesEnabled,
       tiltGesturesEnabled: _tiltGesturesEnabled,
-      markers: Set<Marker>.of(_initMarkerMap.values),
+      markers: Set<Marker>.of(marks[num].values),
     );
     return Scaffold(
         appBar: AppBar(
@@ -136,7 +133,7 @@ class _HomeMapPageState extends State<HomeMapPage> {
           children: [
             Container(
               child: amap,
-              height: 330.h,
+              height: 350.h,
               width: 360.w,
             ),
             Container(
@@ -164,6 +161,7 @@ class _HomeMapPageState extends State<HomeMapPage> {
                       if (type != 1) {
                         setState(() {
                           type = 1;
+                          num=0;
                         });
                       }
                     },
@@ -190,6 +188,7 @@ class _HomeMapPageState extends State<HomeMapPage> {
                       if (type != 2) {
                         setState(() {
                           type = 2;
+                          num=1;
                         });
                       }
                     },
@@ -216,6 +215,7 @@ class _HomeMapPageState extends State<HomeMapPage> {
                       if (type != 3) {
                         setState(() {
                           type = 3;
+                          num=2;
                         });
                       }
                     },
@@ -242,6 +242,7 @@ class _HomeMapPageState extends State<HomeMapPage> {
                       if (type != 4) {
                         setState(() {
                           type = 4;
+                          num=3;
                         });
                       }
                     },
@@ -268,6 +269,7 @@ class _HomeMapPageState extends State<HomeMapPage> {
                       if (type != 5) {
                         setState(() {
                           type = 5;
+                          num=4;
                         });
                       }
                     },
@@ -294,6 +296,7 @@ class _HomeMapPageState extends State<HomeMapPage> {
                       if (type != 6) {
                         setState(() {
                           type = 6;
+                          num=5;
                         });
                       }
                     },
@@ -302,27 +305,36 @@ class _HomeMapPageState extends State<HomeMapPage> {
               ),
             ),
             Container(
-              height: 220.h,
+              height: 200.h,
               child: ListView.builder(
-                  itemCount: showList.length,
+                  itemCount: sumLoc[num].length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      leading: Image.asset(
-                        showList[index]['pic'],
-                        width: 50.w,
-                        height: 50.h,
+                      onTap: (){
+                        _controller?.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+                            target: LatLng(sumLoc[num][index]['latitude'],sumLoc[num][index]['longitude']),
+                            zoom: 18,
+                            tilt: 30,
+                            bearing: 0)));
+                      },
+                      leading:CachedNetworkImage(
+                        fit: BoxFit.fill,
+                        height: 40,
+                        width: 40,
+                        imageUrl: sumLoc[num][index]['buildingMapIcon'],
                       ),
-                      trailing: Image.asset(
-                        showList[index]['trail'],
-                        width: 50.w,
+                      trailing: CachedNetworkImage(
+                        fit: BoxFit.fill,
                         height: 50.h,
+                        width: 60.w,
+                        imageUrl: sumLoc[num][index]['img'],
                       ),
                       title: Text(
-                        showList[index]['title'],
+                        sumLoc[num][index]['title'],
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                       subtitle: Text(
-                        showList[index]['subtitle'],
+                        sumLoc[num][index]['description'],
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: Colors.grey),
                       ),
                     );

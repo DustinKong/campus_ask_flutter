@@ -26,7 +26,7 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
   //   return response;
   // }
   Future _getData;
-  var show, comment;
+  var show, comment, commentList;
   TextEditingController commentController = new TextEditingController();
 
   @override
@@ -47,10 +47,12 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
       });
     });
 
-    FutureDio('get', Api.getNewComment + '/' + widget.arguments['id'] + "/" + "2", {}).then((res) {
-      LogUtil.d(res.data['data']);
+    FutureDio('get', Api.getNewComment + '/' + widget.arguments['id'] + "/" + "1", {}).then((res) {
+      print("xxx");
+      LogUtil.d(res.data['data']['records']);
       setState(() {
         comment = res.data['data'];
+        commentList = res.data['data']['records'];
       });
     });
     // LogUtil.init(title: "来自LogUtil",limitLength:800);
@@ -60,6 +62,7 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
     LogUtil.d(log);
     LogUtil.d("我是日志");
   }
+
   Future _createSelectViewWithContext() async {
     //屏幕宽高
     RenderBox renderBox = context.findRenderObject();
@@ -71,9 +74,7 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, state) {
             return GestureDetector(
-              child:
-              Stack(alignment: AlignmentDirectional.topCenter, children: <
-                  Widget>[
+              child: Stack(alignment: AlignmentDirectional.topCenter, children: <Widget>[
                 Container(
                   color: Colors.transparent,
                   height: screenSize.height * 0.7,
@@ -82,9 +83,7 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
                 Container(
                   height: screenSize.height * 0.35,
                   width: screenSize.width * 1.0,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20.0))),
                   child: Column(
                     children: <Widget>[
                       Container(
@@ -93,39 +92,57 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
                         child: Row(
                           children: <Widget>[
                             Container(
-                              margin:
-                              EdgeInsets.only(left: screenSize.width * 0.4),
+                              margin: EdgeInsets.only(left: screenSize.width * 0.4),
                               child: Text('写评论',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black)),
                             ),
                             InkWell(
                               highlightColor: Colors.transparent,
                               splashColor: Colors.transparent,
                               hoverColor: Colors.transparent,
                               child: Container(
-                                margin: EdgeInsets.only(
-                                    left: screenSize.width * 0.2),
+                                margin: EdgeInsets.only(left: screenSize.width * 0.2),
                                 padding: EdgeInsets.only(left: 5, top: 3),
                                 width: 45,
                                 height: 25,
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
                                     color: Colors.deepOrangeAccent),
                                 child: Text(
                                   '发送',
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.white),
+                                  style: TextStyle(fontSize: 16, color: Colors.white),
                                 ),
                               ),
                               onTap: () {
-
-                                   FutureDio('post', Api.insertForumComment,{"commentContent":commentController.text,"articleId":widget.arguments['id']} ).then((res){
-                                    print(res.data);
+                                FutureDio(
+                                    'post',
+                                    Api.insertForumComment +
+                                        "?articleId=" +
+                                        widget.arguments['id'].toString() +
+                                        "&commentContent=" +
+                                        commentController.text,
+                                    {}).then((res) {
+                                  print(res.data);
+                                  Fluttertoast.showToast(
+                                      msg: '评论成功！',
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIosWeb: 1,
+                                      backgroundColor: Colors.orange,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                  commentController.clear();
+                                  FutureDio('get', Api.getNewComment + '/' + widget.arguments['id'] + "/" + "1", {})
+                                      .then((res) {
+                                    print("xxx");
+                                    LogUtil.d(res.data['data']['records']);
+                                    setState(() {
+                                      comment = res.data['data'];
+                                      commentList = res.data['data']['records'];
+                                    });
                                   });
+                                  Navigator.pop(context);
+                                });
                               },
                             )
                           ],
@@ -135,9 +152,7 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
                           height: 95,
                           width: screenSize.width * 0.90,
                           decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20)),
-                              color: Color(0xFFF0F0F0)),
+                              borderRadius: BorderRadius.all(Radius.circular(20)), color: Color(0xFFF0F0F0)),
                           child: Container(
                             margin: EdgeInsets.only(bottom: 5),
                             color: Colors.transparent,
@@ -148,9 +163,8 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
                               maxLengthEnforced: true,
                               maxLines: 5,
                               enableInteractiveSelection: true,
-                              decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.all(10.0),
-                                  border: InputBorder.none),
+                              decoration:
+                                  InputDecoration(contentPadding: EdgeInsets.all(10.0), border: InputBorder.none),
                             ),
                           ))
                     ],
@@ -162,6 +176,7 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
           });
         });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -182,7 +197,7 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
           ListTile(
               // isThreeLine:true,
@@ -241,41 +256,34 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
                   children: <Widget>[
                     InkWell(
                       child: Image.asset(
-                        show['hasLike'] == false
-                            ? 'assets/images/ground/点赞@2x.png'
-                            : 'assets/images/ground/点赞-on.png',
+                        show['hasLike'] == false ? 'assets/images/ground/点赞@2x.png' : 'assets/images/ground/点赞-on.png',
                         height: 18,
                         width: 18,
                       ),
                       onTap: () {
                         if (show['hasLike'] == false) {
-                          FutureDio('get', Api.giveALikeInForum, {
-                            "likedItemId": show['articleId'].toString(),
-                            "likedItemType": "1"
-                          }).then((res) {
+                          FutureDio('get', Api.giveALikeInForum,
+                              {"likedItemId": show['articleId'].toString(), "likedItemType": "1"}).then((res) {
                             print(res);
                             setState(() {
-                              if(show['articleLike'] is int)
-                                show['articleLike']=(show['articleLike']+1).toString();
+                              if (show['articleLike'] is int)
+                                show['articleLike'] = (show['articleLike'] + 1).toString();
                               else
-                                show['articleLike']=(int.parse(show['articleLike'])+1).toString();
-                              
-                              show['hasLike']=true;
+                                show['articleLike'] = (int.parse(show['articleLike']) + 1).toString();
+
+                              show['hasLike'] = true;
                             });
                           });
-                        }
-                        else{
-                          FutureDio('get', Api.cancelALikeInForum, {
-                            "likedItemId": show['articleId'],
-                            "likedItemType": "1"
-                          }).then((res) {
+                        } else {
+                          FutureDio('get', Api.cancelALikeInForum,
+                              {"likedItemId": show['articleId'], "likedItemType": "1"}).then((res) {
                             print(res);
                             setState(() {
-                              if(show['articleLike'] is int)
-                                show['articleLike']=(show['articleLike']-1).toString();
+                              if (show['articleLike'] is int)
+                                show['articleLike'] = (show['articleLike'] - 1).toString();
                               else
-                                show['articleLike']=(int.parse(show['articleLike'])-1).toString();
-                              show['hasLike']=false;
+                                show['articleLike'] = (int.parse(show['articleLike']) - 1).toString();
+                              show['hasLike'] = false;
                             });
                           });
                         }
@@ -325,13 +333,34 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
             margin: EdgeInsets.fromLTRB(0, 10, 0, 5),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
-            child: Row(children: <Widget>[
-              Text(
-                "  评论 " + "·" + " " + comment['size'].toString(),
-                style: TextStyle(fontSize: 20),
-              ),
-            ],)
+              padding: EdgeInsets.all(10),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    "  评论 " + "·" + " " + comment['size'].toString(),
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              )),
+          Container(
+            height: 400.h,
+            child: ListView.builder(
+                shrinkWrap: true, //解决无限高度问题
+                // physics: NeverScrollableScrollPhysics(),
+                itemCount: commentList.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Image.asset(
+                      "assets/images/my/默认头像备份@2x.png",
+                      height: 60,
+                      width: 60,
+                    ),
+                    title: Text(commentList[index]['username']),
+                    subtitle: Text(
+                      commentList[index]['commentContent'],
+                    ),
+                  );
+                }),
           )
         ],
       ),
@@ -352,12 +381,18 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
                         color: Color(0xFFF0F0F0), borderRadius: BorderRadius.all(Radius.circular(20))),
                     child: Container(
                       width: 50,
-                      padding: EdgeInsets.only(left: 10,top: 7),
+                      padding: EdgeInsets.only(left: 10, top: 7),
                       child: InkWell(
                         onTap: _createSelectViewWithContext,
-                        child: Text('${commentController.text==null||commentController.text==''?'来说些什么吧':commentController.text}',style: TextStyle(
-                            color: commentController.text==null||commentController.text==''?Colors.grey:Colors.black
-                        ),maxLines: 1,overflow: TextOverflow.visible,),
+                        child: Text(
+                          '${commentController.text == null || commentController.text == '' ? '来说些什么吧' : commentController.text}',
+                          style: TextStyle(
+                              color: commentController.text == null || commentController.text == ''
+                                  ? Colors.grey
+                                  : Colors.black),
+                          maxLines: 1,
+                          overflow: TextOverflow.visible,
+                        ),
                       ),
                     )),
               ),
@@ -373,10 +408,10 @@ class _GroundDetailPageState extends State<GroundDetailPage> {
                   color: Colors.deepOrangeAccent,
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                 ),
-                child: Text('发送',style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12
-                ),),
+                child: Text(
+                  '发送',
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
               ),
               onTap: _createSelectViewWithContext,
             ),
