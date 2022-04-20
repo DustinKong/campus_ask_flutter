@@ -397,7 +397,7 @@ class _GroundIndexPageState extends State<GroundIndexPage> {
                             fit: BoxFit.fill,
                             height: 35,
                             width: 35,
-                            imageUrl: showList[index]['userEntity']['avatarUrl'],
+                            imageUrl: showList[index]['userEntity']['avatarUrl']??"https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2299155914.jpg",
                           ),
                         ),
                         title: Text(

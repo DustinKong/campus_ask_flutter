@@ -51,6 +51,7 @@ Future FutureDio(String methods, String api, Map<String, dynamic> obj) async {
     if (methods == "post") {
       response = await dio.post(api, data: obj);
     } else if (methods == 'get') {
+      print(api);
       response = await dio.get(api, queryParameters: obj);
     }
     else if (methods == 'put') {
